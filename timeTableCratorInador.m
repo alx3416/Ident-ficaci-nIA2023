@@ -15,25 +15,32 @@ function myTimeTable = timeTableCratorInador(file)
     
     timeCurrent = current.time-current.time(1);
     corriente_1s = timetable(timeCurrent,current.current);
-    corriente_1s = retime(corriente_1s,'regular',"fillwithmissing",'TimeStep',seconds(1));
+    corriente_1s = rmmissing(corriente_1s);
+    corriente_1s = retime(corriente_1s,'secondly','previous');
     corriente_1s.Properties.VariableNames(1) = "current";
     corriente_1s = fillmissing(corriente_1s,'previous');
     
     timePf = pf.time-pf.time(1);
     pf_1s = timetable(timePf,pf.pf);
-    pf_1s = retime(pf_1s,'regular',"fillwithmissing",'TimeStep',seconds(1));
+    pf_1s = rmmissing(pf_1s);
+    pf_1s = retime(pf_1s,'secondly','previous');
     pf_1s.Properties.VariableNames(1) = "pf";
     pf_1s = fillmissing(pf_1s,'previous');
     
     timePower = power.time-power.time(1);
     power_1s = timetable(timePower,power.power);
-    power_1s = retime(power_1s,'regular',"fillwithmissing",'TimeStep',seconds(1));
+    power_1s = rmmissing(power_1s);
+    power_1s = retime(power_1s,'secondly','previous');
     power_1s.Properties.VariableNames(1) = "power";
     power_1s = fillmissing(power_1s,'previous');
     
     timevoltage = voltge.time-voltge.time(1);
     voltage_1s = timetable(timevoltage,voltge.voltage);
-    voltage_1s = retime(voltage_1s,'regular',"fillwithmissing",'TimeStep',seconds(1));
+    voltage_1s(end+1,:) = corriente_1s(end,:);
+    voltage_1s.timevoltage(end) = corriente_1s.timeCurrent(end);
+    voltage_1s.Var1(end) = voltage_1s.Var1(end-1);
+    voltage_1s = rmmissing(voltage_1s);
+    voltage_1s = retime(voltage_1s,'secondly','previous');
     voltage_1s.Properties.VariableNames(1) = "power";
     voltage_1s = fillmissing(voltage_1s,'previous');
     
