@@ -28,6 +28,7 @@ function myTimeTable = timeTableCratorInador(file)
     microwave_3.reactive_current = sqrt(microwave_3.current.^2-microwave_3.real_current.^2);
     microwave_3.real_power = microwave_3.pf.*microwave_3.power;
     microwave_3.reactive_power = sqrt(microwave_3.power.^2-microwave_3.real_power.^2);
+    microwave_3.time = microwave_3.time - microwave_3.time(1);
 
     myTimeTable = microwave_3;
 

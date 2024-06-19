@@ -17,22 +17,22 @@ function tablaSinOutliers = remueveOutliersInador(tablaConOutliers,graficar)
         tiledlayout(N,1,"Padding","compact");
         for k = 1:N
             nexttile
-            plot(tablaConOutliers.timeCurrent,tablaConOutliers.(k),...
+            plot(tablaConOutliers.time,tablaConOutliers.(k),...
                 "Color",[77 190 238]/255,"DisplayName","Input data")
             hold on
-            plot(tablaConOutliers.timeCurrent,tablaSinOutliers.(k),"Color",[0 114 189]/255,...
+            plot(tablaConOutliers.time,tablaSinOutliers.(k),"Color",[0 114 189]/255,...
                 "LineWidth",1.5,"DisplayName","Cleaned data")
         
             % Plot outliers
-            plot(tablaConOutliers.timeCurrent(outlierIndices(:,k)),tablaConOutliers.(k)(outlierIndices(:,k)),...
+            plot(tablaConOutliers.time(outlierIndices(:,k)),tablaConOutliers.(k)(outlierIndices(:,k)),...
                 "x","Color",[64 64 64]/255,"DisplayName","Outliers")
         
             % Plot filled outliers
-            plot(tablaConOutliers.timeCurrent(outlierIndices(:,k)),tablaSinOutliers.(k)(outlierIndices(:,k)),".",...
+            plot(tablaConOutliers.time(outlierIndices(:,k)),tablaSinOutliers.(k)(outlierIndices(:,k)),".",...
                 "MarkerSize",12,"Color",[217 83 25]/255,"DisplayName","Filled outliers")
         
             % Plot outlier thresholds
-            plot([tablaConOutliers.timeCurrent(:); missing; tablaConOutliers.timeCurrent(:)],...
+            plot([tablaConOutliers.time(:); missing; tablaConOutliers.time(:)],...
                 [thresholdHigh.(k)(:); missing; thresholdLow.(k)(:)],...
                 "Color",[145 145 145]/255,"DisplayName","Outlier thresholds")
         
@@ -40,7 +40,7 @@ function tablaSinOutliers = remueveOutliersInador(tablaConOutliers,graficar)
             legend("Location","EastOutside")
             ylabel(tablaConOutliers.Properties.VariableNames{k},"Interpreter","none")
             if k == N
-                xlabel("timeCurrent")
+                xlabel("time")
             end
         end
         f.NextPlot = "new";

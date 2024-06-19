@@ -18,15 +18,15 @@ function smoothedTable = suaveinador(table2smooth,graficar)
         tiledlayout(N,1,"Padding","compact");
         for k = 1:N
             nexttile
-            plot(table2smooth.timeCurrent,table2smooth.(k),...
+            plot(table2smooth.time,table2smooth.(k),...
                 "Color",[77 190 238]/255,"DisplayName","Input data")
             hold on
-            plot(table2smooth.timeCurrent,smoothedTable.(k),"Color",[0 114 189]/255,...
+            plot(table2smooth.time,smoothedTable.(k),"Color",[0 114 189]/255,...
                 "LineWidth",1.5,"DisplayName","Smoothed data")
             legend("Location","EastOutside")
             ylabel(table2smooth.Properties.VariableNames{k},"Interpreter","none")
             if k == N
-                xlabel("timeCurrent")
+                xlabel("time")
             end
         end
         f.NextPlot = "new";
